@@ -225,20 +225,6 @@ export default function Home() {
     setPlaying(true);
   }
 
-  function exportCsv() {
-    const rows = [
-      ["Hora", ...ZONES.map((zone) => zone.name)],
-      ...HOURS.map((hour, index) => [hour, ...ZONES.map((zone) => simulation[zone.name][index])]),
-    ];
-    const blob = new Blob([rows.map((row) => row.join(",")).join("\n")], { type: "text/csv;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = "simulacion-ica-24h.csv";
-    anchor.click();
-    URL.revokeObjectURL(url);
-  }
-
   return (
     <main className="app-shell">
       <header className="topbar">
@@ -248,7 +234,6 @@ export default function Home() {
         </div>
         <div className="header-actions">
           <div className="live-pill"><span className="pulse" /> SIMULACIÓN EN VIVO</div>
-          <button className="ghost-button" onClick={exportCsv} aria-label="Descargar datos como CSV"><span aria-hidden="true">↓</span> Exportar CSV</button>
           <button className="primary-button" onClick={resetSimulation}><span aria-hidden="true">↻</span> Nueva simulación</button>
         </div>
       </header>
